@@ -149,7 +149,7 @@ app.post("/payment", (req, res) => {
 			phone_number: "0" + req.body.phone,
 			tx_ref: transactionId,
 			callback_url: "http://127.0.0.1:5000/verify",
-			return_url: "http://localhost:3000/paymentconfirmarion",
+			return_url: "https://beauty-salon-pzbw.onrender.com/paymentconfirmarion",
 			title: "Payment For  Glow City",
 			description: "Glowcity the best in the City ",
 			logo: "http://127.0.0.1:5000/images/11.jpg",
@@ -202,7 +202,7 @@ app.post("/appointment/payment", (req, res) => {
 			phone_number: "0" + req.body.phone,
 			tx_ref: transactionId,
 			callback_url: "http://127.0.0.1:5000/verifyappoint",
-			return_url: "http://localhost:3000/appointmentpaymentconfirmarion",
+			return_url: "https://beauty-salon-pzbw.onrender.com/appointmentpaymentconfirmarion",
 			title: "Payment for  Purchuasing Product from Glowcity",
 			description: "Glowcity is the best in the City ",
 		}),
@@ -578,7 +578,7 @@ app.use("/verifyappoint", (req, res) => {
 																		">
 																		<div align="center" class="alignment">
 																			<!--[if mso]>
-	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
+	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://beauty-salon-pzbw.onrender.com/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
 	<w:anchorlock/>
 	<v:textbox inset="0px,0px,0px,0px">
 	<center style="color:#ffffff; font-family:Tahoma, sans-serif; font-size:18px">
@@ -784,10 +784,10 @@ app.use("/verifyappoint", (req, res) => {
 	];
 	db.query(sql, param, (err, result) => {
 		if (err) {
-			res.redirect("http://localhost:3000/serverError");
+			res.redirect("https://beauty-salon-pzbw.onrender.com/serverError");
 		} else {
 			res.status(200).json();
-			//redirect("http://localhost:3000/appointmentpaymentconfirmarion");
+			//redirect("https://beauty-salon-pzbw.onrender.com/appointmentpaymentconfirmarion");
 		}
 	});
 });
@@ -1147,7 +1147,7 @@ app.use("/verify", (req, res) => {
 																		">
 																		<div align="center" class="alignment">
 																			<!--[if mso]>
-	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
+	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://beauty-salon-pzbw.onrender.com/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
 	<w:anchorlock/>
 	<v:textbox inset="0px,0px,0px,0px">
 	<center style="color:#ffffff; font-family:Tahoma, sans-serif; font-size:18px">
@@ -1389,7 +1389,7 @@ app.use("/verify", (req, res) => {
 			);
 		});
 		res.status(200).json({ succed: true });
-		//res.redirect("http://localhost:3000/paymentconfirmarion");
+		//res.redirect("https://beauty-salon-pzbw.onrender.com/paymentconfirmarion");
 	});
 });
 

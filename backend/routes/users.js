@@ -155,7 +155,7 @@ router.get("/resetemail", (req, res) => {
 	};
 	const content = `<div style="background-color:#0a1b0b;width:500px;margin:auto;text-align:center; border-radius:12px; padding:20px">
 		<h2 style="font-size: 24px;color:#f2f2f2"> Click The Link to reset the password</h2>
-		<a href="http://localhost:3000/resetpassword/${btoa(
+		<a href="https://beauty-salon-pzbw.onrender.com/resetpassword/${btoa(
 			expirationTime.getTime()
 		)}" target="_blank" style="background-color:#ad3700;padding:12px;text-decoration:none;border-radius:12px;color:#f2f2f2"> Reset Password </a>
 		<p style="color:#f2f2f2;margin-top:20px;"> The Link will expire after 1 hour<p/>

@@ -203,11 +203,11 @@ router.post("/signup", (req, res) => {
 				<tr>
 				<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:30px;text-align:center;">
 				<div align="center" class="alignment"><!--[if mso]>
-				<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/" style="height:46px;width:110px;v-text-anchor:middle;" arcsize="5%" stroke="false" fillcolor="#b94f6e">
+				<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://beauty-salon-pzbw.onrender.com/" style="height:46px;width:110px;v-text-anchor:middle;" arcsize="5%" stroke="false" fillcolor="#b94f6e">
 				<w:anchorlock/>
 				<v:textbox inset="0px,0px,0px,0px">
 				<center style="color:#ffffff; font-family:Tahoma, sans-serif; font-size:18px">
-				<![endif]--><a href="http://localhost:3000/" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#b94f6e;border-radius:2px;width:auto;border-top:0px solid #12141D;font-weight:400;border-right:0px solid #12141D;border-bottom:0px solid #12141D;border-left:0px solid #12141D;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:18px;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span style="word-break: break-word; line-height: 36px;">Visit Us!</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
+				<![endif]--><a href="https://beauty-salon-pzbw.onrender.com/" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#b94f6e;border-radius:2px;width:auto;border-top:0px solid #12141D;font-weight:400;border-right:0px solid #12141D;border-bottom:0px solid #12141D;border-left:0px solid #12141D;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:18px;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span style="word-break: break-word; line-height: 36px;">Visit Us!</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
 				</td>
 				</tr>
 				</table>
@@ -722,13 +722,13 @@ router.get("/resetemail", (req, res) => {
 																		">
 																		<div align="center" class="alignment">
 																			<!--[if mso]>
-	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
+	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://beauty-salon-pzbw.onrender.com/" style="height:46px;width:232px;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#1c8843">
 	<w:anchorlock/>
 	<v:textbox inset="0px,0px,0px,0px">
 	<center style="color:#ffffff; font-family:Tahoma, sans-serif; font-size:18px">
 	<![endif]-->
 																			<a
-																				href="http://localhost:3000/resetpassword/${btoa(
+																				href="https://beauty-salon-pzbw.onrender.com/resetpassword/${btoa(
 																					expirationTime.getTime()
 																				)}/${encryptedEmail}"
 																				style="
@@ -934,7 +934,7 @@ router.get("/resetemail", (req, res) => {
 																							padding-left: 0px;
 																							padding-right: 0px;
 																						">
-																						<!--<![endif]-->
+																					<!--<![endif]-->
 																					</table>
 																				</td>
 																			</tr>
@@ -1036,7 +1036,7 @@ router.post("/resetPassword", (req, res) => {
 				if (result.length > 0) {
 					db.query(
 						sqlUpdateProfesionalpassword,
-						[password, userEmail],
+						[password, decryptedEmail],
 						(err, result) => {
 							if (err) {
 								res.status(500).json({ passwordUpdate: false });

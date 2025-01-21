@@ -37,7 +37,7 @@ function Cart() {
 	}, 0);
 	function updaeQauantity(info) {
 		try {
-			const response = fetch("http://127.0.0.1:5000/editcart", {
+			const response = fetch("https://beauty-salon-pzbw.onrender.com/editcart", {
 				method: "Put",
 				body: JSON.stringify(info),
 				headers: {
@@ -58,7 +58,7 @@ function Cart() {
 		setItems(updateditems);
 		localStorage.setItem("cart", JSON.stringify(updateditems));
 		try {
-			const response = fetch(`http://127.0.0.1:5000/deleteCart/${cartid}`, {
+			const response = fetch(`https://beauty-salon-pzbw.onrender.com/deleteCart/${cartid}`, {
 				method: "Delete",
 				headers: {
 					"Content-Type": "application/json",
@@ -124,7 +124,7 @@ function Cart() {
 		}));
 		localStorage.setItem("productName", JSON.stringify(productName));
 
-		const response = await fetch("http://127.0.0.1:5000/payment", {
+		const response = await fetch("https://beauty-salon-pzbw.onrender.com/payment", {
 			method: "Post",
 			body: JSON.stringify({
 				fname: localStorage.getItem("userName"),
@@ -152,7 +152,7 @@ function Cart() {
 	// 	localStorage.setItem("totalPrice", totalPrice);
 	// 	localStorage.setItem("totalQuantity", totalQuantity);
 	// 	try {
-	// 		const response = await fetch("http://localhost:5000/PayWithStripe", {
+	// 		const response = await fetch("https://beauty-salon-pzbw.onrender.com/PayWithStripe", {
 	// 			method: "POST",
 	// 			headers: {
 	// 				"Content-Type": "application/json",
