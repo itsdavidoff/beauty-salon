@@ -3,11 +3,22 @@ CREATE DATABASE IF NOT EXISTS testsalon;
 USE testsalon;
 
 -- Create tables
-CREATE TABLE IF NOT EXISTS profesional (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
     email VARCHAR(191) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    fname VARCHAR(100),
+    lname VARCHAR(100),
+    role VARCHAR(50) DEFAULT 'customer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS profesional (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(191) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    fname VARCHAR(100),
+    lname VARCHAR(100),
     phone VARCHAR(20),
     image VARCHAR(255),
     role VARCHAR(50) DEFAULT 'employee',
@@ -16,7 +27,7 @@ CREATE TABLE IF NOT EXISTS profesional (
 
 CREATE TABLE IF NOT EXISTS services (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    servicename VARCHAR(255) NOT NULL,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
     duration INTEGER,
@@ -26,28 +37,18 @@ CREATE TABLE IF NOT EXISTS services (
 
 CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
-    customer_name VARCHAR(255) NOT NULL,
-    customer_email VARCHAR(191) NOT NULL,
-    customer_phone VARCHAR(20),
-    service_id INTEGER,
-    profesional_id INTEGER,
+    customerId INTEGER NOT NULL,
+    serviceId INTEGER NOT NULL,
+    professionalId INTEGER NOT NULL,
     appointment_date TIMESTAMP NOT NULL,
     status VARCHAR(50) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (service_id) REFERENCES services(id),
-    FOREIGN KEY (profesional_id) REFERENCES profesional(id)
+    FOREIGN KEY (customerId) REFERENCES users(id),
+    FOREIGN KEY (serviceId) REFERENCES services(id),
+    FOREIGN KEY (professionalId) REFERENCES profesional(id)
 );
 
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(191) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) DEFAULT 'customer',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Insert admin user
-INSERT INTO users (name, email, password, role) 
-VALUES ('Admin', 'admin@salon.com', 'admin123', 'admin')
+-- Insert admin user if not exists
+INSERT INTO users (email, password, fname, lname, role) 
+VALUES ('admin@salon.com', 'admin123', 'Admin', 'User', 'admin')
 ON CONFLICT (email) DO NOTHING;
