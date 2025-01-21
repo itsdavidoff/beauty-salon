@@ -1,112 +1,92 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/Autcontext";
-import { useCartContext } from "../context/cartcontext";
 
 function Header() {
-	const { token, userType, userName, logout } = useAuthContext();
-	const { items } = useCartContext();
+	const { isAuthenticated, user, logout } = useAuthContext();
+
+	const handleLogout = () => {
+		logout();
+	};
 
 	return (
-		<header>
-			<div className="header-container">
-				<div>
-					<span className="logo">GLOW CITY</span>
-				</div>
-				<nav>
-					<ul className="navigation">
-						<li>
-							<Link to="/" className="navigation-link">
+		<div className="container-fluid bg-white sticky-top">
+			<div className="container">
+				<nav className="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+					<Link to="/" className="navbar-brand">
+						<img
+							className="img-fluid"
+							src="img/logo.png"
+							alt="Logo"
+							style={{ maxHeight: "50px" }}
+						/>
+					</Link>
+					<button
+						type="button"
+						className="navbar-toggler ms-auto me-0"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarCollapse"
+					>
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<div className="collapse navbar-collapse" id="navbarCollapse">
+						<div className="navbar-nav ms-auto">
+							<Link to="/" className="nav-item nav-link">
 								Home
 							</Link>
-						</li>
-
-						<li>
-							<Link to="/makeup" className="navigation-link">
-								Service
-							</Link>
-						</li>
-
-						<li>
-							<Link to="/about" className="navigation-link">
+							<Link to="/about" className="nav-item nav-link">
 								About
 							</Link>
-						</li>
-
-						{!token && (
-							<li>
-								<Link to="/login" className="navigation-link join">
-									Login
+							<Link to="/service" className="nav-item nav-link">
+								Services
+							</Link>
+							<Link to="/product" className="nav-item nav-link">
+								Products
+							</Link>
+							<Link to="/contact" className="nav-item nav-link">
+								Contact
+							</Link>
+							{user?.role === 'admin' && (
+								<Link to="/admin" className="nav-item nav-link">
+									Admin Panel
 								</Link>
-							</li>
-						)}
-
-						{token && userType === "user" && (
-							<li>
-								<Link className="navigation-link join" to="/cart">
-									cart {items?.length ?? 0}
-								</Link>
-							</li>
-						)}
-						{token && userType === "user" && (
-							<li>
-								<Link
-									className="navigation-link join"
-									to="/customerappointment">
-									appointment
-								</Link>
-							</li>
-						)}
-						{token && userType === "profesional" && (
-							<li>
-								<Link className="navigation-link join" to="/Professionalappoin">
-									Dasheboard
-								</Link>
-							</li>
-						)}
-						{token && userType === "admin" && (
-							<li>
-								<Link className="navigation-link join" to="/admin">
-									Dasheboard
-								</Link>
-							</li>
-						)}
-
-						{token && userType !== "admin" && (
-							<>
-								<li>
-									<div class="dropdown">
-										<button class="dropbtn">
-											<p className="userProfile">Hello,{userName}</p>
-											<p className="userProfile">Account &#9660;</p>
-										</button>
-										<div class="dropdown-content">
-											<button onClick={logout}>sign out</button>
-										</div>
-									</div>
-								</li>
-							</>
-						)}
-
-						{token && userType === "admin" && (
-							<>
-								<li>
-									<div class="dropdown">
-										<button class="dropbtn">
-											<p className="userProfile">Hello,Admin</p>
-											<p className="userProfile">Account &#9660;</p>
-										</button>
-										<div class="dropdown-content">
-											<button onClick={logout}>sign out</button>
-										</div>
-									</div>
-								</li>
-							</>
-						)}
-					</ul>
+							)}
+							{!isAuthenticated ? (
+								<>
+									<Link to="/login" className="nav-item nav-link">
+										Login
+									</Link>
+									<Link to="/register" className="nav-item nav-link">
+										Register
+									</Link>
+								</>
+							) : (
+								<>
+									<span className="nav-item nav-link">
+										Welcome, {user?.fname || 'User'}
+									</span>
+									<Link to="/appointment" className="nav-item nav-link">
+										My Appointments
+									</Link>
+									<button
+										className="nav-item nav-link btn btn-link"
+										onClick={handleLogout}
+										style={{ 
+											border: "none", 
+											background: "none", 
+											padding: "8px 15px",
+											cursor: "pointer" 
+										}}
+									>
+										Logout
+									</button>
+								</>
+							)}
+						</div>
+					</div>
 				</nav>
 			</div>
-		</header>
+		</div>
 	);
 }
 
