@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/Autcontext";
 import { useCartContext } from "../context/cartcontext";
 
 function Header() {
-	const { token, userType } = useAuthContext();
+	const { token, userType, userName, logout } = useAuthContext();
 	const { items } = useCartContext();
 
 	return (
