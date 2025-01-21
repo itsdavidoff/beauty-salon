@@ -1,269 +1,180 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import "../../assets/styles/Admin/addService.css";
-import { useAuthContext } from "../../context/Autcontext";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { API_BASE_URL } from '../../config';
 
-function AddService(props) {
-	const { token } = useAuthContext();
+function AddService() {
+	const [formData, setFormData] = useState({
+		serviceName: "",
+		serviceDescription: "",
+		servicePrice: "",
+		serviceHour: "",
+		serviceImage: null
+	});
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const [serviceName, setServiceName] = useState("");
-	const [serviceDesc, setServiceDesc] = useState("");
-	const [servicePrice, setServicePrice] = useState("");
-	const [serviceImage, setServiceImage] = useState(null);
-	const [serviceCatagory, setServiceCatagory] = useState("");
-	const [serviceDuration, setServiceDuration] = useState("");
-	const [errors, setErrors] = useState({});
-	const [errM, setErr] = useState(false);
-	const [errMM, setErrr] = useState(false);
-	const navigate = useNavigate();
-
-	const handleServiceName = (event) => {
-		setServiceName(event.target.value);
+	const handleChange = (e) => {
+		const { name, value, files } = e.target;
+		setFormData(prev => ({
+			...prev,
+			[name]: files ? files[0] : value
+		}));
 	};
 
-	const handleServiceDesc = (event) => {
-		setServiceDesc(event.target.value);
-	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError("");
+		setSuccess("");
 
-	const handleServicePrice = (event) => {
-		setServicePrice(event.target.value);
-	};
+		const { serviceName, serviceDescription, servicePrice, serviceHour, serviceImage } = formData;
 
-	const handleServiceCatagory = (event) => {
-		setServiceCatagory(event.target.value);
-	};
-
-	const handleServiceDuration = (event) => {
-		setServiceDuration(event.target.value);
-	};
-
-	const handleServiceImage = (event) => {
-		setServiceImage(event.target.files[0]);
-	};
-
-	const validateForm = () => {
-		const errors = {};
-
-		if (!serviceCatagory) {
-			errors.serviceCatagory = "Service Category is required";
+		if (!serviceName || !serviceDescription || !servicePrice || !serviceHour || !serviceImage) {
+			setError("All fields are required");
+			setIsLoading(false);
+			return;
 		}
 
-		if (!serviceName.trim()) {
-			errors.serviceName = "Service Name is required";
-		} else if (!isNaN(serviceName.trim())) {
-			errors.serviceName = "Service Name cannot be a number";
-		}
+		try {
+			const formDataToSend = new FormData();
+			formDataToSend.append("serviceName", serviceName);
+			formDataToSend.append("serviceDescription", serviceDescription);
+			formDataToSend.append("servicePrice", servicePrice);
+			formDataToSend.append("serviceHour", serviceHour);
+			formDataToSend.append("serviceImage", serviceImage);
 
-		if (!serviceDesc.trim()) {
-			errors.serviceDesc = "Service Description is required";
-		} else if (serviceDesc.trim().length < 20) {
-			errors.serviceDesc =
-				"Service Description should be at least 20 characters long";
-		} else if (!isNaN(serviceDesc.trim())) {
-			errors.serviceDesc = "Service Description cannot be a number";
-		}
+			const response = await fetch(`${API_BASE_URL}/service`, {
+				method: "POST",
+				body: formDataToSend,
+			});
 
-		if (!servicePrice) {
-			errors.servicePrice = "Service Price is required";
-		} else if (Number(servicePrice) < 200) {
-			errors.servicePrice = "Service Price must be at least 200";
-		}
-
-		if (!serviceImage) {
-			errors.serviceImage = "Service Image is required";
-		}
-
-		setErrors(errors);
-
-		return Object.keys(errors).length === 0;
-	};
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-
-		if (validateForm()) {
-			const formData = new FormData();
-			formData.append("serviceName", serviceName);
-			formData.append("serviceDesc", serviceDesc);
-			formData.append("serviceCatagory", serviceCatagory);
-			formData.append("serviceDuration", serviceDuration);
-			formData.append("servicePrice", servicePrice);
-			formData.append("serviceImage", serviceImage);
-
-			try {
-				const response = await fetch("http://127.0.0.1:5000/addService", {
-					method: "POST",
-					body: formData,
+			if (response.ok) {
+				setSuccess("Service added successfully!");
+				setFormData({
+					serviceName: "",
+					serviceDescription: "",
+					servicePrice: "",
+					serviceHour: "",
+					serviceImage: null
 				});
-				if (response.ok) {
-					setErr(false);
-					props.handleShowPopup();
-				} else if (response.status === 400) {
-					setErr(true);
-				} else if (response.status === 403) {
-					setErrr(true);
-				} else {
-					navigate("/servererror");
-				}
-			} catch (error) {
-				console.log("Error when adding service:", error);
+				document.getElementById("serviceImage").value = "";
+			} else {
+				const data = await response.json();
+				setError(data.error || "Failed to add service");
 			}
+		} catch (err) {
+			setError("An error occurred while adding the service");
+			console.error(err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	return (
-		<div>
-			<div className="conatnerforaddservice">
-				<p className="userExist" style={!errM ? { visibility: "hidden" } : {}}>
-					File Type Not Supported!
-				</p>
-				<p className="userExist" style={!errMM ? { visibility: "hidden" } : {}}>
-					Service Already Exist!
-				</p>
-				<button className="add bn">&#43;</button>
-				<button
-					className="manage-employe-button bn"
-					onClick={props.handleService}>
-					Manage Service
-				</button>
-			</div>
-			<form onSubmit={handleSubmit} encType="multipart/form-data">
-				<div className="addservice container">
-					<div>
-						<label htmlFor="servicecatagory">Service Category</label>
-						<select
-							id="servicecatagory"
-							name="servicecatagory"
-							className="serviceform-select"
-							onChange={handleServiceCatagory}
-							value={serviceCatagory}>
-							<option disabled value="">
-								Select Service Category
-							</option>
-							<option value="makeup">Makeup</option>
-							<option value="nail">Nail</option>
-							<option value="hair">Hair</option>
-						</select>
-						{errors.serviceCatagory && (
-							<p className="error">{errors.serviceCatagory}</p>
-						)}
-					</div>
-
-					{serviceCatagory && (
-						<div>
-							<label htmlFor="servicename">Service Name</label>
-							<select
-								id="servicename"
-								name="servicename"
-								className="serviceform-select"
-								onChange={handleServiceName}
-								value={serviceName}>
-								<option disabled value="">
-									Select Service Name
-								</option>
-								{serviceCatagory === "makeup" && (
-									<>
-										<option value="full makeup">Full Makeup</option>
-										<option value="normal makeup">Normal Makeup</option>
-										<option value="eyelash extension">Eyelash Extension</option>
-										<option value="eyebrow">Eyebrow</option>
-									</>
-								)}
-								{serviceCatagory === "hair" && (
-									<>
-										<option value="hair extension">Hair Extension</option>
-										<option value="hair color">Hair Color</option>
-										<option value="hair treatment">Hair Treatment</option>
-										<option value="hair braid">Hair Braid</option>
-										<option value="hair style">Hair Styling</option>
-									</>
-								)}
-								{serviceCatagory === "nail" && (
-									<>
-										<option value="manicure">Manicure</option>
-										<option value="pedicure">Pedicure</option>
-										<option value="gel">Gel Manicure/Pedicure</option>
-										<option value="nail extension">Nail Extension</option>
-										<option value="nail polish">Nail Polish</option>
-										<option value="nail repair">Nail Repair</option>
-									</>
-								)}
-							</select>
-							{errors.serviceName && (
-								<p className="error">{errors.serviceName}</p>
+		<div className="container mt-4">
+			<div className="row justify-content-center">
+				<div className="col-md-8">
+					<div className="card">
+						<div className="card-body">
+							<h2 className="card-title text-center mb-4">Add New Service</h2>
+							{error && (
+								<div className="alert alert-danger" role="alert">
+									{error}
+								</div>
 							)}
+							{success && (
+								<div className="alert alert-success" role="alert">
+									{success}
+								</div>
+							)}
+							<form onSubmit={handleSubmit}>
+								<div className="mb-3">
+									<label htmlFor="serviceName" className="form-label">
+										Service Name
+									</label>
+									<input
+										type="text"
+										className="form-control"
+										id="serviceName"
+										name="serviceName"
+										value={formData.serviceName}
+										onChange={handleChange}
+										required
+									/>
+								</div>
+								<div className="mb-3">
+									<label htmlFor="serviceDescription" className="form-label">
+										Description
+									</label>
+									<textarea
+										className="form-control"
+										id="serviceDescription"
+										name="serviceDescription"
+										value={formData.serviceDescription}
+										onChange={handleChange}
+										rows="3"
+										required
+									></textarea>
+								</div>
+								<div className="mb-3">
+									<label htmlFor="servicePrice" className="form-label">
+										Price
+									</label>
+									<input
+										type="number"
+										className="form-control"
+										id="servicePrice"
+										name="servicePrice"
+										value={formData.servicePrice}
+										onChange={handleChange}
+										min="0"
+										required
+									/>
+								</div>
+								<div className="mb-3">
+									<label htmlFor="serviceHour" className="form-label">
+										Duration (hours)
+									</label>
+									<input
+										type="number"
+										className="form-control"
+										id="serviceHour"
+										name="serviceHour"
+										value={formData.serviceHour}
+										onChange={handleChange}
+										min="0"
+										step="0.5"
+										required
+									/>
+								</div>
+								<div className="mb-3">
+									<label htmlFor="serviceImage" className="form-label">
+										Service Image
+									</label>
+									<input
+										type="file"
+										className="form-control"
+										id="serviceImage"
+										name="serviceImage"
+										onChange={handleChange}
+										accept="image/*"
+										required
+									/>
+								</div>
+								<div className="text-center">
+									<button
+										type="submit"
+										className="btn btn-primary"
+										disabled={isLoading}
+									>
+										{isLoading ? "Adding..." : "Add Service"}
+									</button>
+								</div>
+							</form>
 						</div>
-					)}
-
-					<div>
-						<label htmlFor="servicedesc">Service Description</label>
-						<input
-							type="text"
-							name="servicedesc"
-							id="servicedesc"
-							placeholder="Service Description"
-							onChange={handleServiceDesc}
-							value={serviceDesc}
-						/>
-						{errors.serviceDesc && (
-							<p className="error">{errors.serviceDesc}</p>
-						)}
-					</div>
-
-					<div>
-						<label htmlFor="serviceprice">Service Price</label>
-						<input
-							type="text"
-							name="serviceprice"
-							id="serviceprice"
-							placeholder="Service Price"
-							onChange={handleServicePrice}
-							value={servicePrice}
-						/>
-						{errors.servicePrice && (
-							<p className="error">{errors.servicePrice}</p>
-						)}
-					</div>
-
-					<div>
-						<label htmlFor="serviceimage">Service Image</label>
-						<input
-							type="file"
-							name="serviceimage"
-							id="serviceimage"
-							onChange={handleServiceImage}
-							accept="image/*"
-						/>
-						{errors.serviceImage && (
-							<p className="error">{errors.serviceImage}</p>
-						)}
-					</div>
-
-					<div>
-						<label htmlFor="servicecatagory">Service Duration</label>
-						<select
-							id="servicecatagory"
-							name="servicecatagory"
-							className="serviceform-select"
-							onChange={handleServiceDuration}
-							value={serviceDuration}>
-							<option disabled value="">
-								Select Service Duration
-							</option>
-							<option value="1">1 Hour</option>
-							<option value="2">2 Hours</option>
-							<option value="1:30">1 Hour 30 Minutes</option>
-						</select>
-					</div>
-
-					<div>
-						<button type="submit" className="addservice-a">
-							Add Service
-						</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	);
 }

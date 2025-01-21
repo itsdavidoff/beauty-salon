@@ -2,6 +2,7 @@ import "../assets/styles/footer.css";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import React from "react";
+import { Link } from "react-router-dom";
 
 // import Flaticon from "flaticon-react";
 
@@ -14,17 +15,17 @@ function Footer() {
 					<h5></h5>
 					<ul>
 						<li>
-							<a href="">
+							<a href="https://www.instagram.com/">
 								<FaInstagram /> instagram
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="https://www.facebook.com/">
 								<FaFacebook /> FaceBook
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="https://www.tiktok.com/">
 								<FaTiktok /> TikTok
 							</a>
 						</li>
@@ -35,13 +36,13 @@ function Footer() {
 					<h5></h5>
 					<ul>
 						<li>
-							<a href="">Services</a>
+							<Link to="/services">Services</Link>
 						</li>
 						<li>
-							<a href="">Product</a>
+							<Link to="/product">Product</Link>
 						</li>
 						<li>
-							<a href="">About</a>
+							<Link to="/about">About</Link>
 						</li>
 					</ul>
 				</div>
@@ -51,13 +52,13 @@ function Footer() {
 					<h5></h5>
 					<ul>
 						<li>
-							<a href="">Nail Design </a>
+							<Link to="/makeup">Makeup</Link>
 						</li>
 						<li>
-							<a href="">Hair Braids</a>
+							<Link to="/hair">Hair Styling</Link>
 						</li>
 						<li>
-							<a href="">Make up</a>
+							<Link to="/spa">Spa & Massage</Link>
 						</li>
 					</ul>
 				</div>

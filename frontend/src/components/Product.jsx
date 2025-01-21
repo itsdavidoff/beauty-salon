@@ -1,228 +1,155 @@
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../assets/styles/product.css";
-import "../assets/styles/detailproduct.css";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
-import { useCartContext } from "../context/cartcontext";
-import { useAuthContext } from "../context/Autcontext";
+import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from '../config';
+import { useAuthContext } from "../context/Autcontext";
 
 function Product() {
-	const { cartLength, items, setItems, setCartLength } = useCartContext();
-	const [product, setProduct] = useState([]);
-	const { userId } = useUserContext();
-	const [showPopup, setShowPopup] = useState(false);
-	const navigate = useNavigate();
-	const [addToCartButtonDisabled, setAddToCartButtonDisabled] = useState(false);
-
-	const userType = localStorage.getItem("userType");
-
-	const handleShowPopup = (e) => {
-		setShowPopup(!showPopup);
-	};
-
-	//if (showPopup) {
-	//	setTimeout(handleShowPopup, 3000);
-	//}
+	const [products, setProducts] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [quantity, setQuantity] = useState(1);
+	const { userId } = useAuthContext();
 
 	useEffect(() => {
-		const fetchProduct = async () => {
-			try {
-				const response = await fetch(`${API_BASE_URL}/product`, {
-					method: "Get",
-				});
-				const data = await response.json();
-				console.log(data);
-				setProduct(data);
-				localStorage.setItem("productWithQunatity", JSON.stringify(data));
-			} catch (e) {
-				console.log(e);
-			}
-		};
-		fetchProduct();
+		fetchProducts();
 	}, []);
 
-	const handleAddtocart = async () => {
-		if (!userId) {
-			navigate("/login");
-			return false;
-		}
-		const productId = Number(localStorage.getItem("productDetailID"));
-		if (items?.length > 0) {
-			const isItemIsOnTheCart = items.filter((p) => p.id === productId);
-			if (isItemIsOnTheCart.length > 0) {
-				handleShowPopup();
-				return false;
+	const fetchProducts = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/product`);
+			if (response.ok) {
+				const data = await response.json();
+				setProducts(data);
+			} else {
+				setError("Failed to fetch products");
 			}
+		} catch (err) {
+			setError("Error loading products");
+			console.error(err);
+		} finally {
+			setLoading(false);
 		}
+	};
 
-		// Disable the button to prevent multiple clicks
-		setAddToCartButtonDisabled(true);
+	const handleBuy = async (productId) => {
+		if (!userId) {
+			setError("Please login to purchase products");
+			return;
+		}
 
 		try {
-			const response = await fetch(
-				`${API_BASE_URL}/addtocart/${productId}`,
-				{
-					method: "POST",
-					body: JSON.stringify({ userId }),
-					headers: { "Content-Type": "application/json" },
-				}
-			);
+			const response = await fetch(`${API_BASE_URL}/order`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					userId,
+					productId,
+					quantity
+				}),
+			});
 
 			if (response.ok) {
-				const cart = await response.json();
-				setItems(cart);
-				setCartLength(cart.length);
-				localStorage.setItem("cart", JSON.stringify(cart));
+				setSelectedProduct(null);
+				setQuantity(1);
+				alert("Order placed successfully!");
+			} else {
+				const data = await response.json();
+				setError(data.error || "Failed to place order");
 			}
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setAddToCartButtonDisabled(false);
+		} catch (err) {
+			setError("Error placing order");
+			console.error(err);
 		}
 	};
-	function SampleNextArrow(props) {
-		const { className, style, onClick } = props;
+
+	if (loading) {
 		return (
-			<div
-				className={className}
-				style={{
-					...style,
-					display: "block",
-					background: "black",
-					width: "40px",
-					height: "40px",
-					textAlign: "center",
-					padding: "10px 0 0 0",
-					borderRadius: "50%",
-					zIndex: "4",
-				}}
-				onClick={onClick}
-			/>
-		);
-	}
-
-	function SamplePrevArrow(props) {
-		const { className, style, onClick } = props;
-		return (
-			<div
-				className={className}
-				style={{
-					...style,
-					display: "block",
-					background: "black",
-					width: "40px",
-					height: "40px",
-					textAlign: "center",
-					padding: "10px 0 0 0",
-					borderRadius: "50%",
-					zIndex: "4",
-				}}
-				onClick={onClick}
-			/>
-		);
-	}
-	const settings = {
-		infinite: true,
-		slidesToShow: 2,
-		slidesToScroll: 1,
-		nextArrow: <SampleNextArrow />,
-		prevArrow: <SamplePrevArrow />,
-		autoplay: true,
-		autoplaySpeed: 4000,
-		cssEase: "linear",
-		// centerMode: true,
-	};
-
-	return (
-		<div>
-			{product?.length > 0 && (
-				<div className="productframe">
-					<p className="productfeature">Products</p>
-
-					<Slider {...settings}>
-						{product.map((product) => (
-							<>
-								{product.quantity > 0 && (
-									<div className="producteachframe">
-										<img
-											src={product.productimage}
-											alt=""
-											className="product-image"
-										/>
-										<p className="product-title">{product.productname}</p>
-										<p className="product-price">{product.productprice} Birr</p>
-
-										{userType === "profesional" && (
-											<button
-												onClick={() => {
-													localStorage.setItem("productDetailID", product.id);
-													handleAddtocart();
-												}}
-												className="addToCart"
-												disabled
-												style={{ cursor: "not-allowed" }}>
-												Add to Cart
-											</button>
-										)}
-										{userType === "admin" && (
-											<button
-												onClick={() => {
-													localStorage.setItem("productDetailID", product.id);
-													handleAddtocart();
-												}}
-												className="addToCart"
-												disabled
-												style={{ cursor: "not-allowed" }}>
-												Add to Cart
-											</button>
-										)}
-										{userType === "user" && (
-											<button
-												onClick={() => {
-													localStorage.setItem("productDetailID", product.id);
-													handleAddtocart();
-												}}
-												className="addToCart">
-												Add to Cart
-											</button>
-										)}
-										{userType === null && (
-											<button
-												onClick={() => {
-													localStorage.setItem("productDetailID", product.id);
-													handleAddtocart();
-												}}
-												className="addToCart">
-												Add to Cart
-											</button>
-										)}
-									</div>
-								)}
-							</>
-						))}
-					</Slider>
-				</div>
-			)}
-			{showPopup && (
-				<div
-					className="popup-container"
-					onClick={handleShowPopup}
-					style={{ zIndex: 100 }}>
-					<div className="popup">
-						<p className="itemisAlready"> item is already on the cart</p>
-						<span className="check-mark ok" onClick={handleShowPopup}>
-							ok
-						</span>
+			<div className="container mt-5">
+				<div className="text-center">
+					<div className="spinner-border" role="status">
+						<span className="visually-hidden">Loading...</span>
 					</div>
 				</div>
-			)}
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className="container mt-5">
+				<div className="alert alert-danger" role="alert">
+					{error}
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className="container mt-5">
+			<h2 className="text-center mb-4">Our Products</h2>
+			<div className="row row-cols-1 row-cols-md-3 g-4">
+				{products.map((product) => (
+					<div key={product.id} className="col">
+						<div className="card h-100">
+							<img
+								src={product.productImage}
+								className="card-img-top"
+								alt={product.productName}
+								style={{ height: "200px", objectFit: "cover" }}
+							/>
+							<div className="card-body">
+								<h5 className="card-title">{product.productName}</h5>
+								<p className="card-text">{product.productDescription}</p>
+								<p className="card-text">
+									<strong>Price: ${product.productPrice}</strong>
+								</p>
+								{selectedProduct?.id === product.id ? (
+									<div>
+										<div className="mb-3">
+											<label htmlFor="quantity" className="form-label">
+												Quantity:
+											</label>
+											<input
+												type="number"
+												className="form-control"
+												id="quantity"
+												value={quantity}
+												onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+												min="1"
+											/>
+										</div>
+										<div className="d-flex gap-2">
+											<button
+												className="btn btn-primary"
+												onClick={() => handleBuy(product.id)}
+											>
+												Confirm Purchase
+											</button>
+											<button
+												className="btn btn-secondary"
+												onClick={() => setSelectedProduct(null)}
+											>
+												Cancel
+											</button>
+										</div>
+									</div>
+								) : (
+									<button
+										className="btn btn-primary"
+										onClick={() => setSelectedProduct(product)}
+									>
+										Buy Now
+									</button>
+								)}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 }
+
 export default Product;

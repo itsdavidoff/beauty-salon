@@ -1,37 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../assets/styles/header.css";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/Autcontext";
-import { useUserContext } from "../context/UserContext";
 import { useCartContext } from "../context/cartcontext";
-function Header(props) {
-	const { token, setToken, setUserType, usertype } = useAuthContext();
+
+function Header() {
+	const { token, userType } = useAuthContext();
 	const { items } = useCartContext();
-	const { userId, userName } = useUserContext();
-	const navigate = useNavigate();
-
-	const logout = () => {
-		localStorage.removeItem("token");
-		localStorage.removeItem("userName");
-		localStorage.removeItem("userType");
-		localStorage.removeItem("userid");
-		localStorage.removeItem("userName");
-		localStorage.removeItem("userLName");
-		localStorage.removeItem("email");
-		localStorage.removeItem("phone");
-		setToken("");
-		setUserType("");
-		navigate("/", { replace: true });
-	};
-
-	const services = () => {
-		if (props.service.current) {
-			window.scrollTo({
-				top: props.service.current.offsetTop,
-				behavior: "smooth",
-			});
-		}
-	};
 
 	return (
 		<header>
@@ -67,14 +41,14 @@ function Header(props) {
 							</li>
 						)}
 
-						{token && usertype === "user" && (
+						{token && userType === "user" && (
 							<li>
 								<Link className="navigation-link join" to="/cart">
 									cart {items?.length ?? 0}
 								</Link>
 							</li>
 						)}
-						{token && usertype === "user" && (
+						{token && userType === "user" && (
 							<li>
 								<Link
 									className="navigation-link join"
@@ -83,14 +57,14 @@ function Header(props) {
 								</Link>
 							</li>
 						)}
-						{token && usertype === "profesional" && (
+						{token && userType === "profesional" && (
 							<li>
 								<Link className="navigation-link join" to="/Professionalappoin">
 									Dasheboard
 								</Link>
 							</li>
 						)}
-						{token && usertype === "admin" && (
+						{token && userType === "admin" && (
 							<li>
 								<Link className="navigation-link join" to="/admin">
 									Dasheboard
@@ -98,7 +72,7 @@ function Header(props) {
 							</li>
 						)}
 
-						{token && usertype !== "admin" && (
+						{token && userType !== "admin" && (
 							<>
 								<li>
 									<div class="dropdown">
@@ -114,7 +88,7 @@ function Header(props) {
 							</>
 						)}
 
-						{token && usertype === "admin" && (
+						{token && userType === "admin" && (
 							<>
 								<li>
 									<div class="dropdown">

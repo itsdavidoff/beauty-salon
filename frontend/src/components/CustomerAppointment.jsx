@@ -268,8 +268,8 @@ export default function CustomerAppointment() {
 			errors.bank = "Select a bank";
 		}
 		if (
-			SelectedBank == "153d0598-4e01-41ab-a693-t9e2g4da6u13" ||
-			SelectedBank == "853d0598-9c01-41ab-ac99-48eab4da1513"
+			SelectedBank === "153d0598-4e01-41ab-a693-t9e2g4da6u13" ||
+			SelectedBank === "853d0598-9c01-41ab-ac99-48eab4da1513"
 		) {
 			if (!phone) {
 				errors.phone = "Phone is required";
@@ -277,7 +277,7 @@ export default function CustomerAppointment() {
 				errors.phone = "Invalid phone number format.";
 			}
 		}
-		if (SelectedBank == "96e41186-29ba-4e30-b013-2ca36d7e7025") {
+		if (SelectedBank === "96e41186-29ba-4e30-b013-2ca36d7e7025") {
 			if (!accountCBE) {
 				errors.cbe = "Account is required";
 			} else if (!accountCBE.match(/^\d+$/)) {
@@ -286,7 +286,7 @@ export default function CustomerAppointment() {
 				errors.cbe = "Account number must be 13.";
 			}
 		}
-		if (SelectedBank == "32735b19-bb36-4cd7-b226-fb7451cd98f0") {
+		if (SelectedBank === "32735b19-bb36-4cd7-b226-fb7451cd98f0") {
 			if (!accountAbysiniya) {
 				errors.abs = "Account is required";
 			} else if (!accountAbysiniya.match(/^\d+$/)) {
@@ -295,7 +295,7 @@ export default function CustomerAppointment() {
 				errors.abs = "Account number must be 8.";
 			}
 		}
-		if (SelectedBank == "80a510ea-7497-4499-8b49-ac13a3ab7d07") {
+		if (SelectedBank === "80a510ea-7497-4499-8b49-ac13a3ab7d07") {
 			if (!accountAwash) {
 				errors.awash = "Account is required";
 			} else if (!accountAwash.match(/^\d+$/)) {
@@ -319,7 +319,7 @@ export default function CustomerAppointment() {
 		} else if (accountCBE) {
 			acc = accountCBE;
 		} else if (phone) {
-			if (phone.length == 8) {
+			if (phone.length === 8) {
 				acc = "09" + phone;
 			} else {
 				acc = phone;
@@ -479,7 +479,7 @@ export default function CustomerAppointment() {
 									{profesionalData[0].profession} Profesional
 								</p>
 
-								{averageRating == 0 && <p className="rating">Not Rated</p>}
+								{averageRating === 0 && <p className="rating">Not Rated</p>}
 								{averageRating > 0 && (
 									<p className="rating">Rating:({averageRating})⭐</p>
 								)}
@@ -610,7 +610,7 @@ export default function CustomerAppointment() {
 												<span className="error">{validationErrors.lname}</span>
 											)}
 										</div>
-										{SelectedBank == "153d0598-4e01-41ab-a693-t9e2g4da6u13" && (
+										{SelectedBank === "153d0598-4e01-41ab-a693-t9e2g4da6u13" && (
 											<div>
 												<label htmlFor="age">Phone</label>
 												<input
@@ -627,7 +627,7 @@ export default function CustomerAppointment() {
 												)}
 											</div>
 										)}
-										{SelectedBank == "853d0598-9c01-41ab-ac99-48eab4da1513" && (
+										{SelectedBank === "853d0598-9c01-41ab-ac99-48eab4da1513" && (
 											<div>
 												<label htmlFor="age">Phone</label>
 												<input
@@ -644,7 +644,7 @@ export default function CustomerAppointment() {
 												)}
 											</div>
 										)}
-										{SelectedBank == "96e41186-29ba-4e30-b013-2ca36d7e7025" && (
+										{SelectedBank === "96e41186-29ba-4e30-b013-2ca36d7e7025" && (
 											<div>
 												<label htmlFor="age">CBE Account</label>
 												<input
@@ -659,7 +659,7 @@ export default function CustomerAppointment() {
 												)}
 											</div>
 										)}
-										{SelectedBank == "32735b19-bb36-4cd7-b226-fb7451cd98f0" && (
+										{SelectedBank === "32735b19-bb36-4cd7-b226-fb7451cd98f0" && (
 											<div>
 												<label htmlFor="age">Abyssinia Bank Account</label>
 												<input
@@ -674,7 +674,7 @@ export default function CustomerAppointment() {
 												)}
 											</div>
 										)}
-										{SelectedBank == "80a510ea-7497-4499-8b49-ac13a3ab7d07" && (
+										{SelectedBank === "80a510ea-7497-4499-8b49-ac13a3ab7d07" && (
 											<div>
 												<label htmlFor="age">Awash Bank Account</label>
 												<input

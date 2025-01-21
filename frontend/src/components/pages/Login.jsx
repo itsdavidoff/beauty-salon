@@ -1,195 +1,110 @@
-import React from "react";
-
-import "../../assets/styles/login.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/Autcontext";
-import { useProfesionalContext } from "../../context/profesionalcontext";
-import { useUserContext } from "../../context/UserContext";
 import { useCartContext } from "../../context/cartcontext";
+import { API_BASE_URL } from '../../config';
+
 function Login() {
-	const { setUserType, setToken } = useAuthContext();
-	const { setProfesionaId } = useProfesionalContext();
-	const { setUserId, setUserName, setUserData } = useUserContext();
-	const { setCartLength, setItems } = useCartContext();
-	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [showPassword, setShowPassword] = useState(false);
-	const [isUserExist, setUserExist] = useState(false);
-	const handleChangeEmail = (event) => {
-		setEmail(event.target.value);
-	};
-	const handleChangePassword = (event) => {
-		setPassword(event.target.value);
-	};
-	const handleShwoPassword = () => {
-		setShowPassword(!showPassword);
-	};
+	const [error, setError] = useState("");
+	const navigate = useNavigate();
+	const { setToken, setUserType } = useAuthContext();
+	const { setCartLength } = useCartContext();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const loginform = {
-			email,
-			password,
-		};
-
 		try {
-			const response = await fetch("https://beauty-salon-pzbw.onrender.com/login", {
+			const response = await fetch(`${API_BASE_URL}/login`, {
 				method: "POST",
-				body: JSON.stringify(loginform),
+				body: JSON.stringify({ email, password }),
 				headers: { "Content-Type": "application/json" },
 			});
 
-			console.log(response);
-			if (response) {
-				const data = await response.json();
+			const json = await response.json();
 
-				if (response.ok) {
-					localStorage.setItem("token", data.isAut);
-					setToken(data.isAut);
-					setUserType(data.userType);
-					localStorage.setItem("userType", data.userType);
+			if (response.ok) {
+				localStorage.setItem("token", json.token);
+				localStorage.setItem("userType", json.userType);
+				localStorage.setItem("userid", json.id);
+				localStorage.setItem("userName", json.fname);
+				localStorage.setItem("userLName", json.lname);
+				localStorage.setItem("email", json.email);
+				localStorage.setItem("phone", json.phone);
 
-					if (data.userType === "admin") {
-						navigate("/admin", { replace: true });
-					}
-					if (data.userType === "user") {
-						setUserId(data.usersResult[0].id);
-						setUserName(data.usersResult[0].fname);
-						localStorage.setItem("userName", data.usersResult[0].fname);
-						localStorage.setItem("userLName", data.usersResult[0].lname);
-						setUserData(data.usersResult);
-						localStorage.setItem("userid", data.usersResult[0].id);
-						localStorage.setItem("email", data.usersResult[0].email);
-						localStorage.setItem("phone", data.usersResult[0].phone);
+				setToken(json.token);
+				setUserType(json.userType);
+				setCartLength(0);
 
-						const handleAddtocart = async () => {
-							const useridd = data.usersResult[0].id;
-
-							const response = await fetch(
-								`https://beauty-salon-pzbw.onrender.com/getCart/${useridd}`,
-								{
-									method: "get",
-								}
-							);
-
-							if (response.ok) {
-								const cart = await response.json();
-								localStorage.setItem("cart", JSON.stringify(cart));
-								// setCartLength(cart.length);
-								// setItems(cart);
-							}
-						};
-						handleAddtocart();
-
-						navigate("/", { replace: true });
-					}
-					if (data.userType === "profesional") {
-						setProfesionaId(data.profesionalResult[0].id);
-						setUserName(data.profesionalResult[0].fname);
-						localStorage.setItem("userName", data.profesionalResult[0].fname);
-						localStorage.setItem(
-							"profesionalName",
-							data.profesionalResult[0].fname
-						);
-						localStorage.setItem("profesionalId", data.profesionalResult[0].id);
-						localStorage.setItem(
-							"password",
-							data.profesionalResult[0].password
-						);
-
-						navigate("/Cashier", { replace: true });
-					}
-				} else if (response.status == 404) {
-					setUserExist(true);
+				if (json.userType === "admin") {
+					navigate("/admin");
+				} else if (json.userType === "professional") {
+					navigate("/professionalappoin");
+				} else if (json.userType === "cashier") {
+					navigate("/cashier");
+				} else {
+					navigate("/");
 				}
 			} else {
-				navigate("/servererror");
+				setError(json.error);
 			}
 		} catch (error) {
-			console.log("error", error);
+			console.error("Login error:", error);
+			setError("An error occurred during login");
 		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className="fullsign">
-				<h3
-					style={{
-						visibility: isUserExist ? "visible" : "hidden", // Corrected syntax
-						width: "300px",
-						margin: "auto",
-						color: "red",
-						fontSize: "2rem",
-						marginBottom: "100px",
-						zIndex: 6,
-						position: "relative",
-					}}>
-					Incorrect Password or Email!
-				</h3>
-
-				<div className="login-container">
-					<div className="loginform container">
-						<div>
-							<h3 className="login-h3">Login to GlowCity</h3>
-						</div>
-						<div>
-							<label htmlFor="username">Email</label>
-							<input
-								type="email"
-								placeholder="Email"
-								name="email"
-								id="username"
-								onChange={handleChangeEmail}
-							/>
-							<br />
-						</div>
-						<div className="password-cont">
-							<label htmlFor="password">Password</label>
-							<input
-								placeholder="Password"
-								type={showPassword ? "text" : "password"}
-								name="password"
-								id="password"
-								onChange={handleChangePassword}
-							/>
-
-							{password && (
-								<button
-									className="off-eye"
-									type="button"
-									onClick={handleShwoPassword}>
-									{" "}
-									{!showPassword && <FaRegEyeSlash />}
-									{showPassword && <MdOutlineRemoveRedEye />}
+		<div className="container mt-5">
+			<div className="row justify-content-center">
+				<div className="col-md-6">
+					<div className="card">
+						<div className="card-body">
+							<h2 className="card-title text-center mb-4">Login</h2>
+							<form onSubmit={handleSubmit}>
+								<div className="mb-3">
+									<label htmlFor="email" className="form-label">
+										Email
+									</label>
+									<input
+										type="email"
+										className="form-control"
+										id="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+									/>
+								</div>
+								<div className="mb-3">
+									<label htmlFor="password" className="form-label">
+										Password
+									</label>
+									<input
+										type="password"
+										className="form-control"
+										id="password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										required
+									/>
+								</div>
+								{error && <div className="alert alert-danger">{error}</div>}
+								<button type="submit" className="btn btn-primary w-100">
+									Login
 								</button>
-							)}
-
-							<br />
-						</div>
-
-						<div>
-							<button className="login-button">Login </button>
-						</div>
-						<div>
-							<span>
-								Don't have an account? <Link to="/signup">Signup here.</Link>
-							</span>
-						</div>
-
-						<div>
-							<Link className="forget-button" to="/resetemail">
-								Forget Password?
-							</Link>
+								<div className="mt-3 text-center">
+									<Link to="/resetemail">Forgot Password?</Link>
+								</div>
+								<div className="mt-2 text-center">
+									Don't have an account? <Link to="/signup">Sign Up</Link>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
 	);
 }
+
 export default Login;
