@@ -3,6 +3,8 @@ import "../../assets/styles/signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { API_BASE_URL } from '../../config';
+
 function Signup() {
 	const [fname, setFname] = useState("");
 	const [lname, setLname] = useState("");
@@ -130,7 +132,7 @@ function Signup() {
 						password,
 					};
 
-					const response = await fetch("http://127.0.0.1:5000/signup", {
+					const response = await fetch(`${API_BASE_URL}/signup`, {
 						method: "POST",
 						body: JSON.stringify(signupForm),
 						headers: { "Content-Type": "application/json" },

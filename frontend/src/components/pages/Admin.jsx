@@ -25,6 +25,7 @@ import { useAuthContext } from "../../context/Autcontext";
 import FeedBack from "../admin/viewFeedBack";
 
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from '../../config';
 
 function Admin() {
 	const [isEmployee, setEmployee] = useState(true);
@@ -269,7 +270,7 @@ function Admin() {
 		setTimeout(handleShowPopup, 3000);
 	}
 	const handleEditProduct = async (productid) => {
-		const response = await fetch(`http://127.0.0.1:5000/product/${productid}`, {
+		const response = await fetch(`${API_BASE_URL}/product/${productid}`, {
 			method: "GET",
 		});
 		if (response.ok) {
@@ -285,7 +286,7 @@ function Admin() {
 	};
 
 	const handleEditService = async (serviceid) => {
-		const response = await fetch(`http://127.0.0.1:5000/service/${serviceid}`, {
+		const response = await fetch(`${API_BASE_URL}/service/${serviceid}`, {
 			method: "GET",
 		});
 		if (response.ok) {

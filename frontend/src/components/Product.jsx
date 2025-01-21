@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { useCartContext } from "../context/cartcontext";
 import { useAuthContext } from "../context/Autcontext";
+import { API_BASE_URL } from '../config';
+
 function Product() {
 	const { cartLength, items, setItems, setCartLength } = useCartContext();
 	const [product, setProduct] = useState([]);
@@ -31,7 +33,7 @@ function Product() {
 	useEffect(() => {
 		const fetchProduct = async () => {
 			try {
-				const response = await fetch("http://127.0.0.1:5000/product", {
+				const response = await fetch(`${API_BASE_URL}/product`, {
 					method: "Get",
 				});
 				const data = await response.json();
@@ -64,7 +66,7 @@ function Product() {
 
 		try {
 			const response = await fetch(
-				`http://127.0.0.1:5000/addtocart/${productId}`,
+				`${API_BASE_URL}/addtocart/${productId}`,
 				{
 					method: "POST",
 					body: JSON.stringify({ userId }),

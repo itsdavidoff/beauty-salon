@@ -4,6 +4,8 @@ import "../../assets/styles/Admin/manageproduct.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/Autcontext";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from '../../config';
+
 function ManageProduct(props) {
 	const [product, setProduct] = useState([]);
 	const [service, setService] = useState([]);
@@ -15,7 +17,7 @@ function ManageProduct(props) {
 	const [ordeid, setOrderId] = useState("");
 
 	useEffect(() => {
-		fetch("http://127.0.0.1:5000/product", {
+		fetch(`${API_BASE_URL}/product`, {
 			method: "Get",
 			headers: {
 				"Content-Type": "application/json",
@@ -26,7 +28,7 @@ function ManageProduct(props) {
 			.then((data) => {
 				setProduct(data);
 			});
-		fetch("http://127.0.0.1:5000/service", {
+		fetch(`${API_BASE_URL}/service`, {
 			method: "Get",
 			headers: {
 				"Content-Type": "application/json",
@@ -47,7 +49,7 @@ function ManageProduct(props) {
 	}, []);
 
 	const handleDeleteService = async (serviceid) => {
-		const response = await fetch(`http://127.0.0.1:5000/service/${serviceid}`, {
+		const response = await fetch(`${API_BASE_URL}/service/${serviceid}`, {
 			method: "Delete",
 			headers: {
 				"Content-Type": "application/json",
@@ -62,7 +64,7 @@ function ManageProduct(props) {
 		}
 	};
 	const handleDeleteProduct = async (productid) => {
-		const response = await fetch(`http://127.0.0.1:5000/product/${productid}`, {
+		const response = await fetch(`${API_BASE_URL}/product/${productid}`, {
 			method: "Delete",
 			headers: {
 				"Content-Type": "application/json",

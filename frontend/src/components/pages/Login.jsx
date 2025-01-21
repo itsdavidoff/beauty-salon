@@ -38,7 +38,7 @@ function Login() {
 		};
 
 		try {
-			const response = await fetch("http://127.0.0.1:5000/login", {
+			const response = await fetch("https://beauty-salon-pzbw.onrender.com/login", {
 				method: "POST",
 				body: JSON.stringify(loginform),
 				headers: { "Content-Type": "application/json" },
@@ -71,7 +71,7 @@ function Login() {
 							const useridd = data.usersResult[0].id;
 
 							const response = await fetch(
-								`http://127.0.0.1:5000/getCart/${useridd}`,
+								`https://beauty-salon-pzbw.onrender.com/getCart/${useridd}`,
 								{
 									method: "get",
 								}

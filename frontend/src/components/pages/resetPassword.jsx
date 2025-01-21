@@ -5,6 +5,8 @@ import "../../assets/styles/resetPassword.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { API_BASE_URL } from '../../config';
+
 function ResetPassword() {
 	const { expiration, email } = useParams();
 	const navigate = useNavigate();
@@ -81,7 +83,7 @@ function ResetPassword() {
 			return;
 		}
 		try {
-			const response = await fetch("http://127.0.0.1:5000/resetPassword", {
+			const response = await fetch(`${API_BASE_URL}/resetPassword`, {
 				method: "post",
 				body: JSON.stringify({ password, email }),
 				headers: { "Content-Type": "Application/json" },
