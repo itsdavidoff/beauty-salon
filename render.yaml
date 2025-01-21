@@ -15,10 +15,12 @@ services:
   - type: web
     name: salon-backend
     env: node
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    buildCommand: npm install
+    startCommand: npm start
     envVars:
       - key: DATABASE_URL
         value: postgresql://postgres:maBHXwkredQDhIAkMtOxIwpnzmfnWofX@junction.proxy.rlwy.net:24937/railway
       - key: NODE_ENV
         value: production
+      - key: PACKAGE_MANAGER
+        value: npm
