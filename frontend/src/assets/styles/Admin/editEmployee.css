@@ -1,0 +1,64 @@
+.editemployee input {
+	width: 100%;
+	padding: 1.2rem;
+	font-size: 1.6rem;
+	border: none;
+	background-color: #f3eeee;
+	border-radius: 9px;
+}
+.editemployee {
+	grid-template-columns: 1fr 1fr;
+	/* row-gap: 1.2rem; */
+	column-gap: 5rem;
+	padding: 40px;
+	padding-top: 0;
+
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	/* border: solid #ccc 1px; */
+	row-gap: 8px;
+	background: #261a2f;
+	/* background-color: white; */
+}
+.editemployee label {
+	color: #ebdbfe;
+}
+select {
+	width: 100%;
+	padding: 1.2rem;
+	font-size: 1.6rem;
+	border: none;
+	background-color: #f3eeee;
+	border-radius: 9px;
+}
+.editemployee-a {
+	background-color: #ebdbfe;
+	font-size: 1.8rem;
+	width: 40%;
+	border-radius: 12px;
+	text-align: center;
+
+	color: #261a2f;
+	border: none;
+	padding: 0;
+	display: inline-block;
+}
+.conatnereditaddemployee {
+	background: #261a2f;
+	padding-left: 40px;
+
+	margin-top: 3rem;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
+.manage-employee-button {
+	border: none;
+	font-size: 2rem;
+	padding: 1.2rem;
+	/* margin-left: 3.2rem; */
+	background-color: #38284c;
+	color: #ebdbfe;
+	border-radius: 12px;
+	transition: all 0.3s;
+	margin-bottom: 3rem;
+}

@@ -1,0 +1,126 @@
+table {
+	border-collapse: collapse;
+	width: 100%;
+	color: #ebdbfe;
+	background: #261a2f;
+	margin-bottom: 20px;
+}
+
+td,
+th {
+	border: 1px solid #dddddd4b;
+	text-align: left;
+	padding: 8px;
+}
+.employedata-conatiner {
+	background-color: #261a2f;
+	height: fit-content;
+	padding-left: 4rem;
+	padding-right: 4rem;
+	padding-bottom: 4rem;
+	border-radius: 14px;
+	padding-top: 0.8rem;
+	margin-top: 12rem;
+}
+.action {
+	border: none;
+	padding: 0.5rem 0.8rem;
+	font-size: 1.4rem;
+	border-radius: 9px;
+	width: 90%;
+
+	background-color: #03dac6;
+}
+.delete {
+	background-color: #cf6679;
+}
+td {
+	font-size: 1.2rem;
+}
+th {
+	font-size: 1.4rem;
+}
+.add {
+	border-radius: 50%;
+	background-color: #bb86fc;
+	padding: 2rem;
+	padding: 1rem 1.8rem;
+	border: none;
+	margin: 3rem 0;
+	font-size: 3.2rem;
+	text-align: center;
+	transition: all 0.5s;
+}
+.add:hover {
+	background-color: #d6b6fd;
+}
+.manage-employe-button {
+	border: none;
+	font-size: 2rem;
+	padding: 1.2rem;
+	margin-left: 3.2rem;
+	background-color: #38284c;
+
+	color: #ebdbfe;
+	border-radius: 12px;
+	transition: all 0.3s;
+	margin-right: 20px;
+}
+.manage-employe-button:hover {
+	background-color: #664c79;
+}
+.welcome {
+	color: #c5bbcc;
+	font-size: 5.2rem;
+}
+.welcome-container {
+	text-align: center;
+}
+tr:hover {
+	background-color: #110818;
+}
+.tr:hover {
+	background-color: transparent;
+}
+.tr {
+	font-weight: 600;
+}
+.th {
+	border: 1px solid rgb(43, 39, 39);
+}
+.td {
+	border: 1px solid rgb(54, 52, 52);
+}
+button {
+	cursor: pointer;
+}
+.h3-customer {
+	color: #ebdbfe;
+	margin-bottom: 1.8rem;
+	font-size: 2em;
+	display: inline-block;
+	margin-right: 20px;
+}
+.image-admin {
+	width: 80px;
+}
+.search {
+	border: none;
+	padding: 1rem;
+	outline: 4px solid rgb(196, 87, 15);
+	border-radius: 12px;
+	margin-bottom: 13px;
+	width: 300px;
+	font-size: 1.6rem;
+	font-weight: 600;
+	background-color: rgb(204, 196, 196);
+}
+.serachicon {
+	position: relative;
+	left: -35px;
+	top: 13px;
+	color: #97929b;
+}
+.serachcontainer {
+	margin-left: 8px;
+}

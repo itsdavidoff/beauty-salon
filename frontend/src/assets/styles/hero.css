@@ -1,0 +1,71 @@
+.hero-conatiner {
+	display: grid;
+	grid-template-columns: 50fr 40fr;
+	padding: 0 4.5rem;
+	padding-top: 3rem;
+	column-gap: 0rem;
+
+	clip-path: polygon(50% 0%, 100% 0, 100% 100%, 47% 94%, 0 88%, 0 0);
+	padding-bottom: 9rem;
+	background-color: #fdf2e9;
+}
+.hero-image {
+	width: 90%;
+}
+h1 {
+	font-size: 5.6rem;
+	color: #333;
+	margin-bottom: 3.2rem;
+	line-height: 1.05;
+	font-weight: 600;
+	margin-top: 3rem;
+}
+.slogan {
+	font-size: 5.6rem;
+	color: #333;
+	margin-bottom: 3.2rem;
+	line-height: 1.05;
+	font-weight: 600;
+	margin-top: 3rem;
+}
+.desciption {
+	font-size: 1.6rem;
+	line-height: 1.6;
+	color: #444;
+	margin-bottom: 8rem;
+}
+.hero-image-container {
+	background-color: #e68193;
+	padding: 3rem;
+	padding-right: 0px;
+
+	clip-path: circle(50% at 50% 50%);
+}
+.explormore {
+	font-size: 2rem;
+	padding: 1.6rem 3.2rem;
+	background-color: #c95b6f;
+	color: rgb(241, 238, 238);
+	border-radius: 1.2rem;
+	transition: all 0.6s;
+}
+.enrolltoday {
+	font-size: 2rem;
+	padding: 1.6rem 3.2rem;
+	background-color: #ffffff;
+	color: rgb(39, 36, 36);
+	border-radius: 1.2rem;
+	transition: all 0.6s;
+	margin-left: 8rem;
+	outline: 5px #c95b6f solid;
+}
+.explormore:hover {
+	outline: 5px rgb(226, 209, 58) solid;
+}
+.enrolltoday:hover {
+	background-color: #ece9e9;
+}
+.best-container {
+	text-align: center;
+	text-transform: uppercase;
+}

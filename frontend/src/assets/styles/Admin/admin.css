@@ -1,0 +1,106 @@
+.admin-conatiner {
+	background-color: rgb(14, 1, 24);
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 20fr 80fr;
+	padding-right: 6rem;
+}
+.admin-menu {
+	background: #261a2f;
+	width: 20rem;
+	height: 100vh;
+	padding-top: 3rem;
+	padding-left: 3.2rem;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	left: 0;
+	top: 0;
+	/* display: none; */
+}
+
+.admin-h2 {
+	font-size: 2rem;
+	color: #f8f3ff;
+	margin-bottom: 0.6rem;
+}
+.admin-h3 {
+	margin-top: 3.2rem;
+	color: #f8f3ff;
+	font-size: 1.2rem;
+	margin-bottom: 1.6rem;
+}
+
+.admin-menu a {
+	font-size: 1.4rem;
+	color: #ebdbfe;
+	margin-bottom: 1.4rem;
+	display: block;
+	transition: all 0.4s;
+	padding: 0.8rem;
+}
+.admin-menu a:hover {
+	background-color: rgb(14, 1, 24);
+
+	border-radius: 12px;
+}
+.admin-sidebar {
+	display: inline-block;
+	width: max-content;
+}
+.popup-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	background-color: rgba(31, 13, 13, 0.39);
+	height: 100vh;
+}
+.popup {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #ffffff;
+	color: rgb(77, 62, 62);
+	padding: 6rem 8rem;
+	border-radius: 12px;
+	text-align: center;
+}
+.popup p {
+	font-size: 1.8rem;
+	margin-top: 4rem;
+}
+
+.check-mark {
+	font-size: 2.8rem;
+	font-weight: 700;
+	background-color: #038b0f;
+	padding: 1rem 1.7rem;
+	border-radius: 50%;
+	color: #ebdbfe;
+}
+/* .ff {
+	background: #261a2f;
+	width: fit-content;
+	text-align: center;
+	padding: 1.2rem;
+	border-radius: 12px;
+	margin-top: 200px;
+	display: inline-block;
+	margin-right: 12px;
+}
+h1 {
+	margin: 0;
+	color: #f8f3ff;
+}
+h3 {
+	font-size: 2.4rem;
+	color: #dcd1eb;
+}
+.ffffff {
+	padding-left: 100px;
+} */
+.no {
+	color: rgb(214, 208, 208);
+}

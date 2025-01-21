@@ -1,0 +1,58 @@
+.editProduct input {
+	width: 100%;
+	padding: 1.2rem;
+	font-size: 1.6rem;
+	border: none;
+	background-color: #f3eeee;
+	border-radius: 9px;
+}
+.editProduct {
+	grid-template-columns: 1fr 1fr;
+	/* row-gap: 1.2rem; */
+	column-gap: 5rem;
+	padding: 40px;
+	padding-top: 0;
+	border-radius: 12px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	/* border: solid #ccc 1px; */
+	row-gap: 8px;
+	background: #261a2f;
+	/* background-color: white; */
+}
+.editProduct label {
+	color: #ebdbfe;
+}
+
+.editProduct-a {
+	padding: 1.2rem;
+	padding-top: 1.2rem;
+	background-color: #ebdbfe;
+	font-size: 1.8rem;
+	border-radius: 12px;
+	text-align: center;
+	margin-top: 2rem;
+	align-items: normal;
+	min-width: min-content;
+	display: block;
+	border: none;
+}
+.conatnerforeditproduct {
+	background: #261a2f;
+	padding-left: 40px;
+	margin-top: 15rem;
+	padding-top: 3rem;
+	border-top-right-radius: 12px;
+	border-top-left-radius: 12px;
+}
+.manage-product-button {
+	border: none;
+	font-size: 2rem;
+	padding: 1.2rem;
+	/* margin-left: 3.2rem; */
+	background-color: #38284c;
+	color: #ebdbfe;
+	border-radius: 12px;
+	transition: all 0.3s;
+	margin-bottom: 3rem;
+}

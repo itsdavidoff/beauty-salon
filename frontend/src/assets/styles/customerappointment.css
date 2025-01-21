@@ -1,0 +1,165 @@
+.customerappointment {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	margin-top: 5rem;
+	margin-left: 2rem;
+	background: #f5f4f3;
+	padding: 3rem 2rem;
+	border-radius: 12px;
+	box-shadow: 0px 0px 13px 3px rgb(207, 205, 205);
+	width: 90rem;
+}
+.customerappointment-p {
+	font-size: 1.6rem;
+}
+.customerappointment-span {
+	font-weight: 700;
+	padding: 0.2rem;
+}
+
+.customerappointment-button {
+	margin: 0;
+
+	width: fit-content;
+	border: none;
+	background-color: rgb(182, 58, 58);
+	padding: 0.6rem 1.2rem;
+	border-radius: 4px;
+	color: rgb(218, 221, 223);
+	font-size: 1.5rem;
+}
+.rateprofesioanl-button {
+	margin: 0;
+	padding: 0;
+	width: fit-content;
+	border: none;
+	background-color: rgb(0, 99, 44);
+	padding: 0.6rem 1.2rem;
+	border-radius: 4px;
+	color: rgb(245, 251, 255);
+	outline: solid 6px rgb(245, 182, 66);
+}
+.ratingPhoto {
+	width: 100px;
+	border-radius: 10px;
+}
+.prof-rate-cont {
+	width: 400px;
+	margin: auto;
+	margin-top: 60px;
+	background-color: #ffffff;
+	border-radius: 20px;
+	padding-top: 20px;
+	display: grid;
+	grid-template-columns: 30fr 70fr;
+	padding-left: 15px;
+	padding-bottom: 30px;
+}
+.pName {
+	font-size: 1.8rem;
+	font-weight: 600;
+	margin-top: 20px;
+	margin-bottom: 3px;
+	text-transform: capitalize;
+}
+.pEmail {
+	font-size: 1.4rem;
+	margin-bottom: 3px;
+	text-transform: capitalize;
+}
+.pProfesion {
+	font-size: 1.4rem;
+	margin-bottom: 3px;
+	text-transform: capitalize;
+}
+.rating {
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+.startRatingbutton {
+	margin-top: 20px;
+	border: none;
+	background-color: rgb(1, 78, 1);
+	color: #f5f4f3;
+	padding: 0.5rem;
+	display: block;
+	font-size: 1.8rem;
+	border-radius: 6px;
+}
+input[type="radio"] {
+	display: none;
+}
+.star {
+	cursor: pointer;
+}
+label {
+	display: inline;
+}
+.startdiv {
+	grid-column: 1 / span 2;
+}
+textarea {
+	border: none;
+	outline: 3px solid sandybrown;
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+.textarea:focus {
+	outline: 3px solid sandybrown;
+}
+.cancelrating {
+	position: absolute;
+	top: 9%;
+	left: 62%;
+	cursor: pointer;
+}
+.tooltipCancel {
+	position: absolute;
+	top: 10%;
+	left: 65%;
+	font-size: 16px;
+	color: #a11515;
+	background-color: white;
+}
+.errorrr {
+	color: red;
+	font-size: 1.4rem;
+	text-transform: capitalize;
+	font-weight: 700;
+	background-color: rgb(153, 229, 153);
+	width: fit-content;
+}
+.sort {
+	border: none;
+	margin-left: 25px;
+	background-color: white;
+	outline: solid 3px orangered;
+	transform: translateY(4px);
+}
+.sortp {
+	font-size: 2rem;
+	margin-left: 2px;
+	color: #3f3c3c;
+	cursor: pointer;
+}
+.feedbackmess {
+	font-size: 1.6rem;
+}
+.thanks-cont {
+	width: 300px;
+	position: fixed;
+	left: 500px;
+	top: 175px;
+	z-index: 5;
+	background-color: rgb(231, 226, 226);
+	padding: 40px;
+	border-radius: 12px;
+}
+.llnn {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	background-color: #38373777;
+	height: 100vh;
+}

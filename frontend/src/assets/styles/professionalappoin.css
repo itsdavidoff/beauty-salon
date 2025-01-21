@@ -1,0 +1,191 @@
+.procontainer {
+	width: 85vw;
+	/* margin-top: ; */
+	padding: 30px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+	box-shadow: 0 0px 4px rgba(53, 49, 49, 0.39);
+	margin-bottom: 2rem;
+	background-color: #e9e0e0;
+}
+.feedbacklink {
+	cursor: pointer;
+}
+.feedbackcontainer {
+	width: 45vw;
+	/* margin-top: ; */
+	padding: 30px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+	box-shadow: 0 0px 4px rgba(53, 49, 49, 0.39);
+	margin-bottom: 2rem;
+	background-color: #e9e0e0;
+}
+.prof-main-cont {
+	padding-left: 4rem;
+}
+.feedback {
+	overflow: auto;
+}
+.protitle {
+	font-size: 30px;
+	margin-top: 10px;
+	color: #503d3d;
+	margin-bottom: 5rem;
+	margin-top: 4rem;
+}
+
+.prow {
+	padding-left: 12px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	margin-bottom: 10px;
+	border: 1px solid #3f20204b;
+	border-radius: 5px;
+}
+.porow {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	margin-bottom: 10px;
+}
+
+.plabel {
+	font-size: 18px;
+	color: #645353;
+	font-weight: 600;
+	width: 150px;
+}
+
+.pinfo {
+	padding-left: 10px;
+	font-size: 16px;
+	color: #473333;
+	width: 150px;
+}
+.name {
+	text-transform: capitalize;
+}
+.imgg {
+	width: 150px !important;
+	height: 100px; /* Set the height equal to width */
+	border-radius: 1px; /* Make it a perfect circle */
+	margin-top: 3.5rem;
+	cursor: pointer;
+	object-fit: contain;
+	border-radius: 50%;
+}
+.profimage {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: -70px;
+	transform: translateX(40px);
+}
+
+.p {
+	font-size: 1.3rem;
+	margin-bottom: 40px;
+	text-transform: capitalize;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+.dddd {
+	display: flex;
+	/* background-color: #e9e0e0; */
+}
+.profileshow {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.178);
+	width: 100vw;
+	height: 100vh;
+}
+.prof-cont {
+	width: 400px;
+	margin: auto;
+	margin-top: 100px;
+	background-color: #ffffff;
+	height: 450px;
+	text-align: center;
+	border-radius: 20px;
+	padding-top: 20px;
+	display: grid;
+	grid-template-columns: 1fr;
+}
+.prof-contt {
+	width: 500px;
+	margin: auto;
+	margin-top: 100px;
+	background-color: #ffffff;
+	height: fit-content;
+	border-radius: 20px;
+	padding-top: 20px;
+	display: grid;
+	grid-template-columns: 1fr;
+	row-gap: 2rem;
+	padding-bottom: 20px;
+	padding-left: 40px;
+}
+.passwordlabel {
+	text-transform: capitalize;
+	font-size: 1.8rem;
+}
+.passwordinput {
+	display: block;
+	padding: 0.6rem;
+	width: 70%;
+	border: 1px solid rgb(61, 58, 58);
+}
+.passwordbutton {
+	margin-top: 20px;
+	padding: 1.2rem;
+	border-radius: 12px;
+	border: none;
+	color: #f2f2f2;
+	background-color: green;
+}
+.updateprofile {
+	width: 80%;
+	height: 80%;
+	border-radius: 20px;
+	object-fit: contain;
+}
+.update-button {
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	padding: 1.2rem;
+	border-radius: 12px;
+	border: none;
+	color: #f2f2f2;
+	background-color: green;
+}
+.changeStatusbtn {
+	margin: 0;
+	display: inline;
+	border: none;
+	padding: 0.8rem;
+	background-color: rgb(1, 75, 1);
+	margin-top: 10px;
+	border-radius: 6px;
+	color: #f2f2f2;
+}
+
+.feedbackcont {
+	display: grid;
+	grid-template-columns: 20fr 60fr;
+	column-gap: 4rem;
+}
+.feedbackcontainerp {
+	font-size: 2rem;
+}
+.ttttttttt {
+	background-color: rgb(172, 163, 163);
+	font-size: 2rem;
+	text-wrap: wrap;
+	padding: 2rem 3rem;
+	margin-bottom: 2rem;
+	min-width: 400px;
+	height: 400px;
+}
