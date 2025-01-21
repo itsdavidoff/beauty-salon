@@ -17,6 +17,7 @@ const crypto = require("crypto");
 app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 const secreteKey = process.env.SECRET_KEY;
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
@@ -1980,6 +1981,10 @@ app.use(autenticationRoute);
 
 app.use(adminRoutes);
 app.use(ProfesionalRoutes);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+});
 
 app.listen(5000, () => {
 	console.log("Server started on port 5000");
